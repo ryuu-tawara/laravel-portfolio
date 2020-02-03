@@ -1,5 +1,4 @@
 /*変更が必要*/
-require('./bootstrap');
 
 window.Vue = require('vue');
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>

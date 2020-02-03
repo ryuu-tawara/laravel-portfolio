@@ -5,7 +5,7 @@
 <title>Vue app</title>
 
 <meta charset="UTF-8">
-<!--変更が必要-->
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <link rel="stylesheet" href="portfolio.css" type="text/css"></link>
 
@@ -17,7 +17,7 @@
 <div id="app">
 
 <div class="top">
-<!--変更が必要-->
+
 <img src="yukiyama.jpg">
 
 <p style="margin-left: 30px">Name:</p>
@@ -32,7 +32,7 @@
 @mouseout="changeRed(1)"
 :style="{color: overColor1}" 
 v-if="OK2"
-style="margin-left: 160px; margin-top: 80px">@{{univ}}</p>
+style="margin-left: 160px; margin-top: 80px">{{univ}}</p>
 </transition>
 
 <p style="margin-left: 30px; margin-top: 130px">Major in:</p>
@@ -42,7 +42,7 @@ style="margin-left: 160px; margin-top: 80px">@{{univ}}</p>
 @mouseout="changeRed(2)"
 :style="{color: overColor2}" 
 v-if="OK3" 
-style="margin-left: 150px; margin-top: 130px">@{{major}}</p>
+style="margin-left: 150px; margin-top: 130px">{{major}}</p>
 </transition>
 
 </div>
@@ -185,7 +185,7 @@ var app = new Vue({
       }
     }
 });
-<!--変更が必要-->
+
 </script>
 
 </body>

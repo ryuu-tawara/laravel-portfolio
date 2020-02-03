@@ -5,7 +5,6 @@
 <title>Vue app</title>
 
 <meta charset="UTF-8">
-<meta name="csrf-token" content="{{ csrf_token() }}">
 <!--変更が必要-->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <link rel="stylesheet" href="{{ asset('portfolio.css') }}"></link>
@@ -19,11 +18,11 @@
 
 <div class="top">
 <!--変更が必要-->
-<img src="fonts/yukiyama.jpg">
+<img src="yukiyama.jpg">
 
 <p style="margin-left: 30px">Name:</p>
 <transition :src="call()" name="one">
-<p v-if="OK1" style="margin-left: 110px">@{{name}}</p>
+<p v-if="OK1" style="margin-left: 110px">{{name}}</p>
 </transition>
 
 <p style="margin-left: 30px; margin-top: 80px">University:</p>

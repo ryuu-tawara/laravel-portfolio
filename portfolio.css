@@ -22,7 +22,8 @@
     }
 
   .top img {
-    height: 5200px;
+    height: 100vh;
+    position: fixed;
     width: 100%;
     }
 

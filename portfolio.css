@@ -20,12 +20,13 @@
     padding: 2px 10px;/*文字周りの余白*/
     font-family:serif;
     }
-/*
+@media screen and(max-width:480px)
+{
   .top img {
-    height:100vw;
+    /*height:100vw;*/
     width:100%;
     }
-*/
+}
   .title p {
     position: absolute;
     top: 0;/*大きさを無くす*/

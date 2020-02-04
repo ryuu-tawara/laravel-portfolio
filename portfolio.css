@@ -1,4 +1,6 @@
- 
+body {
+background-color:#39C;
+} 
  .one-enter{
      opacity: 0;
      transform: translateY(30px);

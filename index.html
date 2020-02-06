@@ -58,6 +58,7 @@ style="margin-left: 150px; margin-top: 130px">{{major}}</p>
 v-if="OK4">Hello!!</p>
 </transition>
 </div>
+
 <div class="contents">
 <transition name="skill">
 
@@ -92,20 +93,28 @@ style="margin-left: 300px; margin-top: 380px;">&#x1f4d6; Skill</p>
 
 <div class="contents">
 <transition name="skill">
+
 <p v-if="OK5" 
 style="margin-left: 900px; margin-top: 380px;">&#x1f4d6; Collection</p>
 </transition>
-<!--
-<transition name="skill">
-<p v-if="OK5"
-style="margin-left: 900px; margin-top: 480px;">
-鬼ごっこ
-</p>
--->
-</transition>
 </div>
+<div class="contents2">
+
+<transition :src="call()"name="skill">
+  <code @click="link('https://ryuu-tawara.github.io/laravel-portfolio/brock.html')"
+  @mouseover="changeRed(3)"
+  @mouseout="changeRed(3)"
+  :style="{color: overColor3}" 
+  v-if="OK5"
+  style="margin-left: 950px; margin-top: 450px">{{app1}}
+  </code>
+</transition>
+</p>
+
+</div>
+
  
- </div>
+</div>
  
 <script>
 var app = new Vue({
@@ -114,6 +123,7 @@ var app = new Vue({
     name: 'ryuunosuke tawara',
     univ: 'Hukuoka kougyou',
     major: 'Electronic information',
+    app1: 'ブロック崩し',
     restSec: 80,
     timer: null,
     OK1: false,
@@ -123,6 +133,7 @@ var app = new Vue({
     OK5: false,
     overColor1: 'white',
     overColor2: 'white',
+    overColor3: 'white',
   },
   methods:{
       call:function(){
@@ -143,7 +154,8 @@ var app = new Vue({
           this.overColor1 = 'white'; 
         }
       }
-      else{
+      else if(num==2)
+      {
         if(this.overColor2 == 'white')
         {
           this.overColor2 = 'red';
@@ -151,6 +163,17 @@ var app = new Vue({
         else
         {
           this.overColor2 = 'white'; 
+        }
+      }
+      else if(num==3)
+      {
+        if(this.overColor3 == 'white')
+        {
+          this.overColor3 = 'red';
+        }
+        else
+        {
+          this.overColor3 = 'white'; 
         }
       }
         

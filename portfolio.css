@@ -62,13 +62,25 @@ background-color:#39C;
     padding: 2px 50px;/*文字周りの余白*/
     font-size: 50px;/*文字の大きさ*/
     white-space: pre;/*改行しない*/
-    font-family:sans-serif;/*筆を変える*/
+    font-family:serif;;/*筆を変える*/
     font-weight: 100;
     width: 400px;
     background:rgb(22, 39, 46);
     color: rgb(250, 250, 250);
     margin-left: 900px; 
     margin-top: 160px;
+  }
+  .contents2 code {
+    position: absolute;
+    top: 0;/*大きさを無くす*/
+    left: 0;
+    margin: 5;
+    color: white;/*文字を白に*/
+    background: rgb(22, 39, 46);/*背景色*/
+    font-size: 40px;/*文字の大きさ*/
+    line-height: 1;/*行高は1に*/
+    padding: 10px 70px;/*文字周りの余白*/
+    font-family:serif;
   }
 .hello-enter,.hello-leave-to{
     opacity: 0;

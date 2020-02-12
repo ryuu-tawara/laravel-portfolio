@@ -29,18 +29,20 @@
     function drawBall() {
         ctx.beginPath();
 
-        ctx.arc(x, y, round, 0, Math.PI*2);
+        ctx.arc(ball_x, ball_y, round, 0, Math.PI*2);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
 
         ctx.closePath();
     }
     //パドル描写
+    /*
     function drawPaddle(){
       ctx.beginPath();
       ctx.rect()
       ctx.closePath();
     }
+    */
   　//描写処理
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -48,19 +50,19 @@
     }
     //ボール軌道処理
     function moveBall() {
-      x += vx;
-      y += vy;
+      ball_x += ball_vx;
+      ball_y += ball_vy;
     }
     //ぶつかった時の処理
     function clash(){
-      if(canvas.width < x+round)
-        {vx = -vx;}
-      else if(x < round)
-        {vx = -vx;}
-      if(canvas.height < y+round)
-        {vy = -vy;}
-      else if(y < +round)
-        {vy = -vy;}   
+      if(canvas.width < ball_x+round)
+        {ball_vx = -ball_vx;}
+      else if(ball_x < round)
+        {ball_vx = -ball_vx;}
+      if(canvas.height < ball_y+round)
+        {ball_vy = -ball_vy;}
+      else if(ball_y < +round)
+        {ball_vy = -ball_vy;}   
     }
     //メインの処理
     function index(){
@@ -69,7 +71,7 @@
       clash();//ぶつかった時の処理
     }
 
-    setInterval(draw, 14);
+    setInterval(index, 14);
 </script>
 
 </body>

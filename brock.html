@@ -1,52 +1,77 @@
+<!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
-<meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
-<style>
-    h1 {
-      text-align: center;
-    }
-    canvas {
-      background-color: #eee;
-      display: block;
-      margin: 0 auto;
-      width: 50%;
-    }
-  </style>
-  <script>
-  function canvas() {
-    var canvas = document.getElementById('sample');
-    var context = canvas.getContext('2d');
-
-    //描く形状の内側の色を指定
-    context.fillStyle = 'rgb(100,100,100)';
-    //canvas要素に(左から160,上から80,幅100,高さ60の)矩形を指定した色で描く
-    context.fillRect(160,80,100,60);
-  }
-  </script>
+    <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
+    <title>move the ball</title>
+    <style>
+    * { padding: 0; margin: 0; } 
+    canvas { background: #eee; display: block; margin: 0 auto; width:80%;height:80%}
+    </style>
 </head>
+<body>
 
-<body onLoad="canvas()">
+<canvas id="myCanvas" ></canvas>
 
-<h1>It's test!!</h1>
-<canvas id="sample">
-canvas要素に対応していないブラウザです。
-</canvas>
-<!--
 <script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    //ボールについて
+    var ball_x = canvas.width/2;//ボールの初期y座標
+    var ball_y = canvas.height-30;//ボールの初期x座標
+    var ball_vx = 1;//ボールのy座標の速さ
+    var ball_vy = -1;//ボールのx座標の速さ
+    var round = 4;//ボールの大きさ
+    //パドルについて
+    var paddle_x = canvas.width/2;
+    var paddle_y = canvas.height
+　　
+    //ボール描写
+    function drawBall() {
+        ctx.beginPath();
 
-var app = new Vue({
+        ctx.arc(x, y, round, 0, Math.PI*2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
 
-el: '#app',
-data: {},
-methods:{},
-watch:{},
+        ctx.closePath();
+    }
+    //パドル描写
+    function drawPaddle(){
+      ctx.beginPath();
+      ctx.rect()
+      ctx.closePath();
+    }
+  　//描写処理
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
+    }
+    //ボール軌道処理
+    function moveBall() {
+      x += vx;
+      y += vy;
+    }
+    //ぶつかった時の処理
+    function clash(){
+      if(canvas.width < x+round)
+        {vx = -vx;}
+      else if(x < round)
+        {vx = -vx;}
+      if(canvas.height < y+round)
+        {vy = -vy;}
+      else if(y < +round)
+        {vy = -vy;}   
+    }
+    //メインの処理
+    function index(){
+      draw()//描写処理
+      moveBall();//ボール軌道処理
+      clash();//ぶつかった時の処理
+    }
 
-});
-
+    setInterval(draw, 14);
 </script>
--->
-</body>
 
+</body>
 </html>

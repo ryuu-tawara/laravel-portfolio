@@ -20,10 +20,41 @@
     var ball_y = canvas.height-30;//ボールの初期x座標
     var ball_vx = 1;//ボールのy座標の速さ
     var ball_vy = -1;//ボールのx座標の速さ
-    var round = 4;//ボールの大きさ
+    var round = 3;//ボールの大きさ
+
     //パドルについて
-    var paddle_x = canvas.width/2;
-    var paddle_y = canvas.height
+    var paddle_x = canvas.width/2;//パドルの初期x座標
+    var paddle_y = canvas.height-20;//パドルの初期y座標
+    var paddle_v = 2;//パドルの速さ
+    var paddle_length = 25;//パドルの横の長さ
+    var paddle_height = 5;//パドルの縦の長さ
+
+    //パドルの操作
+    var right = false;
+    var left = false;
+    document.addEventListener("keydown", keyDown, false);
+    document.addEventListener("keyup", keyUp, false);
+    //キーを押した処理
+    function keyDown(e){
+      //右ボタンを押されたら
+      if(e.key == "Right" || e.key == "ArrowRight"){
+        right = true;
+      }
+      //左ボタンを押されたら
+      else if(e.key == "Left" || e.key == "ArrowLeft"){
+        left = true;
+      }
+    }
+    //キーを離した処理
+    function keyUp(e){
+      if(e.key == "Right" || e.key == "ArrowRight"){
+        right = false;
+      }
+      else if(e.key == "Left" || e.key == "ArrowLeft"){
+        left = false;
+      }
+    }
+
 　　
     //ボール描写
     function drawBall() {
@@ -36,22 +67,32 @@
         ctx.closePath();
     }
     //パドル描写
-    /*
     function drawPaddle(){
       ctx.beginPath();
-      ctx.rect()
+      ctx.rect(paddle_x,paddle_y,paddle_length,paddle_height);
+      ctx.fillStyle = "#0095DD";
+      ctx.fill();
       ctx.closePath();
     }
-    */
+    
   　//描写処理
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
+        drawPaddle();
     }
     //ボール軌道処理
     function moveBall() {
       ball_x += ball_vx;
       ball_y += ball_vy;
+    }
+    //パドルの軌道処理
+    function movePaddle(){
+      if(right && paddle_x + paddle_length < canvas.width)
+      { paddle_x += paddle_v;}
+      else if(left && 0 < paddle_x)
+      { paddle_x -= paddle_v;}
+
     }
     //ぶつかった時の処理
     function clash(){
@@ -62,12 +103,17 @@
       if(canvas.height < ball_y+round)
         {ball_vy = -ball_vy;}
       else if(ball_y < +round)
+        {ball_vy = -ball_vy;}
+      if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y > paddle_y - round)
         {ball_vy = -ball_vy;}   
+      if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y <= paddle_y + paddle_height && paddle_y <= ball_y)
+        {ball_y -= 5;}
     }
     //メインの処理
     function index(){
       draw()//描写処理
       moveBall();//ボール軌道処理
+      movePaddle();//パドルの軌道処理
       clash();//ぶつかった時の処理
     }
 

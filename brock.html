@@ -104,7 +104,7 @@
         ctx.beginPath();
 
         ctx.arc(ball_x, ball_y, round, 0, Math.PI*2);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "rgb(0,0,0)";
         ctx.fill();
 
         ctx.closePath();
@@ -114,7 +114,7 @@
       ctx.beginPath();
 
       ctx.rect(paddle_x,paddle_y,paddle_length,paddle_height);
-      ctx.fillStyle = "#0095DD";
+      ctx.fillStyle = "rgb(0,0,0)";
       ctx.fill();
 
       ctx.closePath();
@@ -145,12 +145,7 @@
 
       ctx.closePath();
     }
-    /*
-    var brock_length = 25;
-    var brock_height = 5;
-    var brock_num = 21;
-    var brock_step = 3;
-    */
+
   　//描写処理
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -5,7 +5,7 @@
     <title>move the ball</title>
     <style>
     * { padding: 0; margin: 0; } 
-    canvas { background: #eee; display: block; margin: 0 auto; width:80%;height:80%}
+    canvas { background: #eee; display: block; margin: 0 auto; width:80%;height:100%}
     </style>
 </head>
 <body>
@@ -13,6 +13,7 @@
 <canvas id="myCanvas" ></canvas>
 
 <script>
+
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     //ボールについて
@@ -23,7 +24,7 @@
     var round = 3;//ボールの大きさ
 
     //パドルについて
-    var paddle_x = canvas.width/2;//パドルの初期x座標
+    var paddle_x = canvas.width/2//パドルの初期x座標
     var paddle_y = canvas.height-20;//パドルの初期y座標
     var paddle_v = 2;//パドルの速さ
     var paddle_length = 25;//パドルの横の長さ
@@ -32,8 +33,44 @@
     //パドルの操作
     var right = false;
     var left = false;
-    document.addEventListener("keydown", keyDown, false);
-    document.addEventListener("keyup", keyUp, false);
+    
+    //ブロックについて
+    var brock_length = 25;
+    var brock_height = 5;
+    var brock_num = 77;
+    var brock_step = 7;
+
+    //タッチ処理可能ならばタッチ処理
+    if(window.TouchEvent){
+      if(document.addEventListener)
+      {
+        //タッチされたときの処理
+        function TouchStart(e){
+          var touch_list = e.changedTouches;
+          var i;
+          var num = touch_list.length;
+          for(i=0;i<num;i++){
+            var touch = touch_list[i];
+            //画面の右側がタッチされたら
+            if(touch.screenX > canvas.width/2)
+            {
+              right = true;
+            }
+            //画面の左側がタッチされたら
+            else if(touch.screenX < canvas.width/2)
+            {
+              left = true;
+            }
+          }
+        }
+        //タッチが終わった時の処理
+        function TouchEnd(e){
+          right = false;
+          left = false;
+        }
+      }
+    }
+
     //キーを押した処理
     function keyDown(e){
       //右ボタンを押されたら
@@ -55,6 +92,12 @@
       }
     }
 
+    //イベントの処理
+    document.addEventListener("touchstart",TouchStart);
+    document.addEventListener("touchend",TouchEnd);
+    document.addEventListener("keydown", keyDown, false);
+    document.addEventListener("keyup", keyUp, false);
+
 　　
     //ボール描写
     function drawBall() {
@@ -69,17 +112,80 @@
     //パドル描写
     function drawPaddle(){
       ctx.beginPath();
+
       ctx.rect(paddle_x,paddle_y,paddle_length,paddle_height);
       ctx.fillStyle = "#0095DD";
       ctx.fill();
+
       ctx.closePath();
     }
-    
+    //ブロック描写
+    function drawBrock(brock_x,brock_y,r,g,b){
+      
+      //外側の四角形
+      ctx.beginPath();
+
+      ctx.rect(brock_x,brock_y,brock_length,brock_height);
+      ctx.fillStyle = "rgb("+ r +","+ g +","+ b +")";
+      ctx.fill();
+
+      ctx.closePath();
+      //光による反射による四角形
+      if(r < 100)
+      { r = 160;}
+      if(g < 100)
+      { g = 160;}
+      if(b < 100)
+      { b = 160}
+      ctx.beginPath();
+
+      ctx.rect(brock_x+2,brock_y+1,brock_length-4,brock_height-3);
+      ctx.fillStyle = "rgb("+ r +","+ g +","+ b +")";
+      ctx.fill();
+
+      ctx.closePath();
+    }
+    /*
+    var brock_length = 25;
+    var brock_height = 5;
+    var brock_num = 21;
+    var brock_step = 3;
+    */
   　//描写処理
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
         drawPaddle();
+        var i,k;//ブロックの変数
+        var brock_row = brock_num/brock_step;//一列に幾つ配置するか割り切れなかったらエラーを出すようにする
+        var r=0,g=0,b=0;//ブロックの色
+        for(k=0;k<brock_step;k++)
+        {
+          //三色の色でブロックを区別させる
+          if(k%3 == 0)//赤
+          {
+            r = 240;
+            g = 0;
+            b = 0;
+          }
+          else if(k%3 == 1)//青
+          {
+            r = 0;
+            g = 0;
+            b = 240;
+          }
+          else if(k%3 == 2)//緑
+          {
+            r = 0;
+            g = 240;
+            b = 0;
+          }
+            for(i=0;i<brock_row;i++)
+            {
+              drawBrock(12+i*brock_length,10+k*brock_height,r,g,b);
+            }
+        }
+        
     }
     //ボール軌道処理
     function moveBall() {
@@ -96,18 +202,23 @@
     }
     //ぶつかった時の処理
     function clash(){
+      //右側の壁にぶつかる
       if(canvas.width < ball_x+round)
         {ball_vx = -ball_vx;}
+      //左側の壁にぶつかる
       else if(ball_x < round)
         {ball_vx = -ball_vx;}
+      //下側の壁にぶつかる
       if(canvas.height < ball_y+round)
         {ball_vy = -ball_vy;}
-      else if(ball_y < +round)
+      //上側の壁にぶつかる
+      else if(ball_y < +　round)
         {ball_vy = -ball_vy;}
+      //パドルにぶつかる
       if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y > paddle_y - round)
         {ball_vy = -ball_vy;}   
       if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y <= paddle_y + paddle_height && paddle_y <= ball_y)
-        {ball_y -= 5;}
+        {ball_y -= 8;}
     }
     //メインの処理
     function index(){
@@ -117,7 +228,7 @@
       clash();//ぶつかった時の処理
     }
 
-    setInterval(index, 14);
+    setInterval(index, 14);//14
 </script>
 
 </body>

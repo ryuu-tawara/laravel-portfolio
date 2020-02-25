@@ -103,13 +103,18 @@
     if (event.touches.length > 1) 
     {event.preventDefault();}}, true);
     //ダブルタッチで反応しない
-    let lastTouch = 0;
+    let flag = false;
     document.addEventListener('touchend', event => {
-    const now = window.performance.now();
-    if (now - lastTouch <= 500) {
+    if (flag) {
       event.preventDefault();
-      }
-    lastTouch = now;}, true);
+    } 
+    else {
+    flag = true;
+    setTimeout(() => {
+      flag = false;
+    }, 500);
+    }
+    }, true);
     //イベントの処理
     document.addEventListener("touchstart",TouchStart);
     document.addEventListener("touchend",TouchEnd);

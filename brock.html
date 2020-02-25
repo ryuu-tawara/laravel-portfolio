@@ -39,6 +39,12 @@
     var brock_height = 5;
     var brock_num = 77;
     var brock_step = 7;
+    var brock_x = new Array(brock_num);
+    var brock_y = new Array(brock_num);
+    var brock_exist = new Array(brock_num);
+    var b;
+    for(b=0;b<brock_num;b++)
+    { brock_exist[b] = 1; }
 
     //タッチ処理可能ならばタッチ処理
     if(window.TouchEvent){
@@ -149,14 +155,13 @@
   　//描写処理
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBall();
-        drawPaddle();
+        
         var i,k;//ブロックの変数
-        var brock_row = brock_num/brock_step;//一列に幾つ配置するか割り切れなかったらエラーを出すようにする
+        var brock_row = brock_num/brock_step;//一列に配置する数
         var r=0,g=0,b=0;//ブロックの色
         for(k=0;k<brock_step;k++)
         {
-          //三色の色でブロックを区別させる
+          //ブロックの色の指定
           if(k%3 == 0)//赤
           {
             r = 240;
@@ -177,10 +182,18 @@
           }
             for(i=0;i<brock_row;i++)
             {
-              drawBrock(12+i*brock_length,10+k*brock_height,r,g,b);
+              brock_x[i+k*brock_row] = 12+i*brock_length;//ブロックのx座標の追加
+              brock_y[i+k*brock_row] = 10+k*brock_height;//ブロックのy座標の追加
+              if(brock_exist[i+k*brock_row] == 1)//ブロックが存在するか
+              {
+              drawBrock(12+i*brock_length,10+k*brock_height,r,g,b);//ブロックの描写
+              }
+              
             }
+          
         }
-        
+        drawBall();//ボールの描写
+        drawPaddle();//パドルの描写    
     }
     //ボール軌道処理
     function moveBall() {
@@ -198,22 +211,85 @@
     //ぶつかった時の処理
     function clash(){
       //右側の壁にぶつかる
-      if(canvas.width < ball_x+round)
+      if(canvas.width <= ball_x+round)
         {ball_vx = -ball_vx;}
       //左側の壁にぶつかる
-      else if(ball_x < round)
+      else if(ball_x <= round)
         {ball_vx = -ball_vx;}
       //下側の壁にぶつかる
-      if(canvas.height < ball_y+round)
+      if(canvas.height <= ball_y+round)
         {ball_vy = -ball_vy;}
       //上側の壁にぶつかる
-      else if(ball_y < +　round)
+      else if(ball_y <= +　round)
         {ball_vy = -ball_vy;}
-      //パドルにぶつかる
-      if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y > paddle_y - round)
-        {ball_vy = -ball_vy;}   
-      if(paddle_x <= ball_x && ball_x < paddle_x + paddle_length && ball_y <= paddle_y + paddle_height && paddle_y <= ball_y)
-        {ball_y -= 8;}
+
+      //パドルとの衝突
+
+      //y座標のパドルとの衝突
+      if(paddle_x - round<= ball_x && ball_x <= paddle_x + paddle_length + round)//x座標に入っているか
+        {
+        if(paddle_y-round == ball_y )//上側のy座標に入っているか
+          {ball_vy = -ball_vy;}   
+        else if(paddle_y+paddle_height+round == ball_y)//下側のy座標に入っているか
+          {ball_vy = -ball_vy;}
+        }
+      //x座標のパドルとの衝突
+      if( paddle_y <= ball_y && ball_y <= paddle_y+paddle_height )//y座標に入っているか
+        {
+          if(paddle_x+paddle_length/2<= ball_x && ball_x<=paddle_x+paddle_length+round)//右側のx座標に入っているか
+            {
+            ball_vx = -ball_vx;
+            ball_vy = -ball_vy;
+            }
+          else if(paddle_x-round <= ball_x && ball_x <= paddle_x + paddle_length/2)//左側のx座標に入っているか
+            {
+            ball_vx = -ball_vx;
+            ball_vy = -ball_vy;
+            }
+        }    
+
+      //ブロックにぶつかる
+      var h;
+      for(h=0;h<brock_num;h++)
+      {
+       if(brock_exist[h] == 1)
+       {
+
+        //y座標のブロックとの衝突
+        if(brock_x[h] - round<= ball_x && ball_x <= brock_x[h] + brock_length + round)//x座標に入っているか
+          {
+          if(brock_y[h]-round == ball_y )//上側のy座標に入っているか
+            {
+              ball_vy = -ball_vy;
+              brock_exist[h] = 0;
+            }   
+          else if(brock_y[h]+brock_height+round == ball_y)//下側のy座標に入っているか
+            {
+              ball_vy = -ball_vy;
+              brock_exist[h] = 0;  
+            }
+          }
+        //x座標のブロックとの衝突
+        if( brock_y[h] <= ball_y && ball_y <= brock_y[h]+brock_height )//y座標に入っているか
+          {
+            if(brock_x[h]+brock_length/2<= ball_x && ball_x<=brock_x[h]+brock_length+round)//右側のx座標に入っているか
+              {
+              ball_vx = -ball_vx;
+              //ball_vy = -ball_vy;
+              brock_exist[h] = 0;
+              }
+            else if(brock_x[h]-round <= ball_x && ball_x <= brock_x[h] + brock_length/2)//左側のx座標に入っているか
+              {
+              ball_vx = -ball_vx;
+              //ball_vy = -ball_vy;
+              brock_exist[h] = 0;
+              }
+          }
+          
+         }
+      }
+      
+      
     }
     //メインの処理変更
     function index(){
@@ -223,7 +299,7 @@
       clash();//ぶつかった時の処理
     }
 
-    setInterval(index, 14);//14
+    setInterval(index, 17);//14
 </script>
 <p style="text-align: center;user-select:none;-webkit-user-select: none;">
      画面両サイドのタッチで左右の移動<br/>

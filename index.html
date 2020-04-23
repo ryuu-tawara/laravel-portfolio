@@ -106,7 +106,18 @@ style="margin-left: 900px; margin-top: 380px;">&#x1f4d6; Collection</p>
   @mouseout="changeRed(3)"
   :style="{color: overColor3}" 
   v-if="OK5"
-  style="margin-left: 950px; margin-top: 450px">{{app1}}
+  style="margin-left: 950px; margin-top: 450px"
+  
+  >{{app1}}
+  </code>
+</transition>
+<transition :src="call()"name="skill">
+  <code @click="link('https://ryuu-tawara.github.io/laravel-portfolio/brock.html')"
+  @mouseover="changeRed(4)"
+  @mouseout="changeRed(4)"
+  :style="{color: overColor4}" 
+  v-if="OK5"
+  style="margin-left: 950px; margin-top: 550px">{{app2}}
   </code>
 </transition>
 </p>
@@ -121,9 +132,10 @@ var app = new Vue({
   el: '#app',
   data: {
     name: 'ryuunosuke tawara',
-    univ: 'Hukuoka kougyou',
+    univ: ' Fukuoka Institute of Technology',
     major: 'Electronic information',
-    app1: 'ブロック崩し',
+    app1: 'ブロック崩し               ',
+    app2: 'Scrapyによる天気予報',
     restSec: 80,
     timer: null,
     OK1: false,
@@ -134,6 +146,7 @@ var app = new Vue({
     overColor1: 'white',
     overColor2: 'white',
     overColor3: 'white',
+    overColor4: 'white',
   },
   methods:{
       call:function(){
@@ -174,6 +187,17 @@ var app = new Vue({
         else
         {
           this.overColor3 = 'white'; 
+        }
+      }
+      else if(num==4)
+      {
+        if(this.overColor4 == 'white')
+        {
+          this.overColor4 = 'red';
+        }
+        else
+        {
+          this.overColor4 = 'white'; 
         }
       }
         

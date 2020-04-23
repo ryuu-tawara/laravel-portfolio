@@ -1,5 +1,6 @@
 body {
 background-color:#39C;
+background-size:contain;
 } 
  .one-enter{
      opacity: 0;
@@ -82,6 +83,7 @@ background-color:#39C;
     line-height: 1;/*行高は1に*/
     padding: 10px 70px;/*文字周りの余白*/
     font-family:serif;
+    
   }
 .hello-enter,.hello-leave-to{
     opacity: 0;

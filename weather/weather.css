@@ -1,0 +1,16 @@
+div#tableData table tr > td:nth-child(1)
+{
+    color: magenta;
+}
+div#tableData table tr > td:nth-child(2)
+{
+    color: green;
+}
+div#tableData table tr > td:nth-child(3)
+{
+    color: red;
+}
+div#tableData table tr > td:nth-child(4)
+{
+    color: blue;
+}

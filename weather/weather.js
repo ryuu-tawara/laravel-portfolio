@@ -35,7 +35,11 @@ for (var i=0; i<tabText.length; i++){
     if(urlParam) {
         for (var j=0; j<cText.length; j++){
             //urlパラメータに対応する要素のみ挿入する
-            if(paramArray["City"].search(cText[1]) != -1){
+            if(i == 0)
+            {
+                tbl += "<td>"+cText[j]+"</td>";
+            }
+            else if(paramArray["City"].search(cText[1]) != -1){
                 tbl += "<td>"+cText[j]+"</td>";//ここで値が挿入される
             }
             else{

@@ -33,33 +33,40 @@ for (var i=0; i<tabText.length; i++){
     tbl += "<tr>";
     //urlパラメータがあるか
     if(urlParam) {
+
         for (var j=0; j<cText.length; j++){
             //urlパラメータに対応する要素のみ挿入する
-            if(i == 0)
-            {
+            if(i == 0){
                 tbl += "<td>"+cText[j]+"</td>";
             }
-            else if(paramArray["City"].search(cText[1]) != -1){
+            else　if(paramArray["City"].search(cText[1]) != -1){
                 tbl += "<td>"+cText[j]+"</td>";//ここで値が挿入される
             }
             else{
                 break;
             }
         }
+        
     }
     else{
+
         for (var j=0; j<cText.length; j++){
                 tbl += "<td>"+cText[j]+"</td>";//ここで値が挿入される
             }
-        }
 
-    tbl +="</tr>";
     }
-
-
+    tbl +="</tr>";
+    //要素が無い時に削除する
+    if(tbl.slice(-9) == "<tr></tr>"){
+        tbl = tbl.slice(0, -9);
+    }
+    
+}
 
 tbl += "</table>";
+
 $("tableData").innerHTML = tbl;
+
 },
 //アクセスに失敗したら
 onFailure:function(httpObj){

@@ -17,7 +17,7 @@ window.onload = function(){
             second = 59;
             minute -= 1;
         }
-        else if(pomo != 0 && pomo == 8 && rest == 0){
+        else if(pomo == 8 && rest == 0){
             minute = 30;
             second = 0; 
             rest = 1;
@@ -49,14 +49,14 @@ window.onload = function(){
             second = 0;
             sound.load();
         }
-        timer.innerHTML = minute + '分' + second +'秒' + cout +'回目';
+        timer.innerHTML = minute + '分' + second +'秒' + pomo +'回目' + cout +'セット';
     };
 
     startBtn.onclick = function(){
-        setInterval(hoge, 1000);
+        setInterval(hoge, 50);
         sound.load();
     }
     
-    timer.innerHTML = minute + '分' + second +'秒' + cout +'回目';
+    timer.innerHTML = minute + '分' + second +'秒' + pomo +'回目' + cout +'セット';
     
 };

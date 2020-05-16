@@ -53,7 +53,7 @@ window.onload = function(){
     };
 
     startBtn.onclick = function(){
-        setInterval(hoge, 5);
+        setInterval(hoge, 1000);
         sound.load();
     }
     

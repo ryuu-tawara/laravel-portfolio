@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>JavaScript Sample</title>
+<link rel="stylesheet" type="text/css" href="parts.css" media="all">
+<script type="text/javascript" src="parts.js"></script>
+</head>
+<body>
+    <span id="span1">aaa</span>
+    <form name="form1"  method="post">
+    予定:<input type="text" name="plan" size="30" maxlength="20"><br/><br/>
+    精細:<br/>
+    <textarea name="detail" rows="4" cols="40"></textarea><br/>
+    <input type="submit"onclick="clickBtn1()" value="確定"><input type="reset" value="リセット"><br/><br/>
+    色の選択:
+    <select name="Color">
+        <option value="red">赤色</option>
+        <option value="blue">青色</option>
+        <option value="yellow">黄色</option>
+        <option value="green">緑色</option>
+    </select>
+    </form>
+    <script>
+        var element = document.querySelector(".form1 .Color");
+        element.style.color = "red"
+    </script>
+</body>
+</html>

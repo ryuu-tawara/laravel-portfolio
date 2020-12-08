@@ -16,14 +16,14 @@
 <div id="app">
 
 <div class="top">
- 
+ <!--画像の表示-->
 <img src="yukiyama.jpg">
-
+<!--名前の表示-->
 <p style="margin-left: 30px;margin-top: 30px">Name:</p>
 <transition :src="call()" name="one">
 <p v-if="OK1" style="margin-left: 110px; margin-top: 30px">{{name}}</p>
 </transition>
-
+<!--大学の表示(大学のサイトに飛ぶ)-->
 <p style="margin-left: 30px; margin-top: 80px">University:</p>
 <transition :src="call()"name="one">
 <p @click="link('https://www.fit.ac.jp/')"
@@ -33,7 +33,7 @@
 v-if="OK2"
 style="margin-left: 160px; margin-top: 80px">{{univ}}</p>
 </transition>
-
+<!--専攻の表示(電子情報に飛ぶ)-->
 <p style="margin-left: 30px; margin-top: 130px">Major in:</p>
 <transition :src="call()"name="one">
 <p @click="link('https://www.fit.ac.jp/gakubu/kougaku/denshi')"
@@ -48,7 +48,7 @@ style="margin-left: 150px; margin-top: 130px">{{major}}</p>
 
 <div class="title">
 
-
+<!--タイトルの表示-->
 <p style="margin-left: 590px; margin-top: 70px;"
 @mouseover="sw(4)"
 @mouseout="sw(4)"
@@ -61,12 +61,12 @@ v-if="OK4">Hello!!</p>
 
 <div class="contents">
 <transition name="skill">
-
+<!--スキルの表示-->
 <p v-if="OK5" 
 style="margin-left: 300px; margin-top: 380px;">&#x1f4d6; Skill</p>
-
 </transition>
 <transition name="skill">
+
 <code v-if="OK5"
  style="margin-left: 300px; margin-top: 430px;">
   python
@@ -93,7 +93,7 @@ style="margin-left: 300px; margin-top: 380px;">&#x1f4d6; Skill</p>
 
 <div class="contents">
 <transition name="skill">
-
+<!--作成物の表示-->
 <p v-if="OK5" 
 style="margin-left: 900px; margin-top: 380px;">&#x1f4d6; Collection</p>
 </transition>
